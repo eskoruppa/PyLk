@@ -2,9 +2,9 @@ import numpy as np
 from typing import Tuple
 from .eval_link import linkingnumber
 
-def triads2link(pos: np.ndarray, triads: np.ndarray, radius: float = 1) -> float:
+def triads2link(pos: np.ndarray, triads: np.ndarray, radius: float = 1, closed: bool = True) -> float:
     chain1,chain2 = triads2chain(pos,triads,radius)
-    return linkingnumber(chain1,chain2)
+    return linkingnumber(chain1,chain2,closed=closed)
 
 def triads2chain(pos: np.ndarray, triads: np.ndarray, radius: float = 1) -> Tuple[np.ndarray,np.ndarray]:
     chain1 = np.zeros((len(pos),3))

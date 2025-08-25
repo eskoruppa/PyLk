@@ -5,7 +5,7 @@ from .writhemap import writhemap
 def writhe(pos: np.ndarray, closed: bool = True, num_ext: int = 0, ext_dir: np.ndarray = None):
     if num_ext > 0:
         if ext_dir is None:
-            raise ValueError(f'writhe: Extension of the chain requires the extesion direction (ext_dir) to be specified.')
+            raise ValueError(f'writhe: Extension of the chain requires the extension direction (ext_dir) to be specified.')
         if closed:
             raise ValueError(f'writhe: Chain extension not supported for closed chain.')  
         ext_pos = np.empty((pos.shape[0]+2*num_ext,pos.shape[1]))

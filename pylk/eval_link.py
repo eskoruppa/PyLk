@@ -19,12 +19,12 @@ except ModuleNotFoundError:
         # )
         pass
          
-def linkingnumber(chain1: np.ndarray, chain2: np.ndarray) -> np.ndarray:
+def linkingnumber(chain1: np.ndarray, chain2: np.ndarray, closed: bool = True) -> np.ndarray:
     if LK_METHOD == 1:
         print('using cython')
-        return _eval_lk_cython(chain1,chain2)
+        return _eval_lk_cython(chain1,chain2,closed=closed)
     elif LK_METHOD == 2:
         print('using numba')
-        return _eval_lk_numba(chain1,chain2)
+        return _eval_lk_numba(chain1,chain2,closed=closed)
     return _eval_lk_python(chain1,chain2)
 

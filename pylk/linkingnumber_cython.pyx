@@ -14,7 +14,7 @@ from cython.view cimport array as cvarray
 @cython.nonecheck(False)
 @cython.profile(True)
 @cython.cdivision(True)
-cpdef double _eval_lk_cython(double[:, ::1] curve1, double[:, ::1] curve2):
+cpdef double _eval_lk_cython(double[:, ::1] curve1, double[:, ::1] curve2, closed: bool = True):
     cdef int N1,N2,i,j
     cdef double lk,dlk,nv,nw,cosbeta,sinbetasq,a0,a1,a2,val
     cdef double[::1] p1,p2,q1,q2,v,w,e1,e2,r12
@@ -41,6 +41,9 @@ cpdef double _eval_lk_cython(double[:, ::1] curve1, double[:, ::1] curve2):
     
     N1 = len(curve1)
     N2 = len(curve2)
+    if not closed:
+        N1 = N1 - 1
+        N2 = N2 - 1
     minoneover4pi = -0.07957747154594767
     # N1 = curve1.shape[0]
     # N2 = curve2.shape[0]

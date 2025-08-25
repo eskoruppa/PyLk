@@ -2,9 +2,12 @@ import numpy as np
 from numba import jit
 
 @jit(nopython=True, cache=True)
-def _eval_lk_numba(curve1: np.ndarray, curve2: np.ndarray) -> float:
+def _eval_lk_numba(curve1: np.ndarray, curve2: np.ndarray,closed: bool = True) -> float:
     N1 = len(curve1)
     N2 = len(curve2)
+    if not closed:
+        N1 -= 1
+        N2 -= 1
     lk = 0
     for i in range(N1):
         for j in range(N2):
@@ -24,6 +27,9 @@ def _eval_lk_numba(curve1: np.ndarray, curve2: np.ndarray) -> float:
             
             cosbeta = np.dot(e1,e2)
             sinbetasq = 1 - cosbeta**2
+            
+            if np.abs(sinbetasq) < 1e-10:
+                continue
             
             a1 = np.dot(r12,(e2*cosbeta-e1)) / sinbetasq
             a2 = np.dot(r12,(e2-e1*cosbeta)) / sinbetasq
