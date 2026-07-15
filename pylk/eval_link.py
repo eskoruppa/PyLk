@@ -20,11 +20,13 @@ except ModuleNotFoundError:
         pass
          
 def linkingnumber(chain1: np.ndarray, chain2: np.ndarray, closed: bool = True) -> np.ndarray:
+    # The cython implementations are typed double[:, ::1] and reject
+    # non-contiguous or non-float64 input that the other paths accept.
+    chain1 = np.ascontiguousarray(chain1, dtype=np.float64)
+    chain2 = np.ascontiguousarray(chain2, dtype=np.float64)
     if LK_METHOD == 1:
-        print('using cython')
         return _eval_lk_cython(chain1,chain2,closed=closed)
     elif LK_METHOD == 2:
-        print('using numba')
         return _eval_lk_numba(chain1,chain2,closed=closed)
     return _eval_lk_python(chain1,chain2)
 

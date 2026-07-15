@@ -26,6 +26,10 @@ def writhemap(config, method="klenin1a", implementation=WM_DEFAULT_METHOD):
     if implementation == "cython" and not WM_CYTHON_INCLUDED:
         raise ModuleNotFoundError("No module named 'pylk._writhemap_cython'")
 
+    # The cython implementations are typed double[:, ::1] and reject
+    # non-contiguous or non-float64 input that the other paths accept.
+    config = np.ascontiguousarray(config, dtype=np.float64)
+
     if method == "klenin1a":
         if implementation == "cython":
             return np.asarray(wmc_writhemap_klenin1a(config))

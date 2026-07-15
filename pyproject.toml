@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61", "wheel", "cython>=0.29", "numpy>=1.23"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "PyLk"
+version = "0.1.0"
+description = "A package to calculate linking properties of polymer configurations"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Enrico Skoruppa", email = "esk.phys@gmail.com" }]
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.23",
+    "numba",
+    "scipy",
+]
+
+[project.urls]
+Homepage = "https://github.com/eskoruppa/PyLk"
+
+[tool.setuptools]
+packages = ["pylk"]
